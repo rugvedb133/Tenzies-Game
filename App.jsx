@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Confetti from "react-confetti"
 import Die from "./components/Die"
 
 export default function App() {
@@ -9,13 +10,15 @@ export default function App() {
 
   const [diceArray, setDiceArray] = useState(generateAllNewDice());
 
+  const gameWon = diceArray.every(die => die.isHeld) && diceArray.every(die => die.value === diceArray[0].value)
+
   function generateAllNewDice() {
     let diceArray = []
     for (let i = 0; i < 10; i++) {
       diceArray[i] = {
         id: i+1,
         value: generateDieValue(),
-        isHeld: true
+        isHeld: false
       };
     }
     return diceArray;
@@ -47,10 +50,15 @@ export default function App() {
     />))
   return (
     <main>
+      {gameWon && <Confetti/> }
+      <h1 id="title">Tenzies</h1>
+      <p id="instructions">
+        Roll until all dice are the same. Click each die to freeze it at its current value between rolls.
+      </p>
       <div id="dice-container">
         {diceComponents}
       </div>
-      <button id="roll-dice" onClick={rollAllDice}>Roll</button>
+      <button id="roll-dice" onClick={rollAllDice}>{gameWon ? "New Game" : "Roll"}</button>
     </main>
   );
 }
