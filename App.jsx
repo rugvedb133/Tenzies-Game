@@ -8,7 +8,7 @@ export default function App() {
     return Math.ceil(Math.random() * 6);
   }
 
-  const [diceArray, setDiceArray] = useState(generateAllNewDice());
+  const [diceArray, setDiceArray] = useState(() => generateAllNewDice());
 
   const gameWon = diceArray.every(die => die.isHeld) && diceArray.every(die => die.value === diceArray[0].value)
 
@@ -25,11 +25,16 @@ export default function App() {
   }
 
   function rollAllDice() {
-    setDiceArray(prev => 
-      prev.map(item => 
-        item.isHeld ? item : { ...item, value: generateDieValue()}
+    if (gameWon) {
+      setDiceArray(generateAllNewDice())
+    }
+    else {
+      setDiceArray(prev => 
+        prev.map(item => 
+          item.isHeld ? item : { ...item, value: generateDieValue()}
+        )
       )
-    )
+    } 
   }
 
     function holdDice(id) {
