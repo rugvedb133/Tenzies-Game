@@ -20,7 +20,11 @@ export default function App() {
   function generateAllNewDice() {
     let diceArray = []
     for (let i = 0; i < 10; i++) {
-      diceArray[i] = generateDieValue();
+      diceArray[i] = {
+        id: i+1,
+        value: generateDieValue(),
+        isHeld: true
+      };
     }
     return diceArray;
   }
@@ -29,7 +33,7 @@ export default function App() {
     setDiceArray(generateAllNewDice())
   }
 
-  const diceComponents = diceArray.map(die => <Die value={die} />)
+  const diceComponents = diceArray.map(die => <Die value={die.value} isHeld={die.isHeld} key={die.id} />)
   return (
     <main>
       <div id="dice-container">

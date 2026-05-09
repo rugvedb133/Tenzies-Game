@@ -1,3 +1,4 @@
 export default function App(props) {
-    return (<button>{props.value}</button>)
+    const heldStyle = { backgroundColor: "lightgreen" }
+    return (<button style={props.isHeld ? heldStyle : null}>{props.value}</button>)
 }
