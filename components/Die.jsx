@@ -1,4 +1,13 @@
 export default function App(props) {
-    const heldStyle = { backgroundColor: "lightgreen" }
-    return (<button style={props.isHeld ? heldStyle : null}>{props.value}</button>)
+    const heldStyle = { 
+        backgroundColor: props.isHeld ? "lightgreen": "white"
+    }
+    return (
+        <button 
+            style={heldStyle}
+            id={props.id}
+            onClick={() => props.handler(props.id)}
+        >
+            {props.value}
+        </button>)
 }
