@@ -25,12 +25,17 @@ export default function App() {
     return diceArray;
   }
 
+  function rollAllDice() {
+    setDiceArray(generateAllNewDice())
+  }
+
   const diceComponents = diceArray.map(die => <Die value={die} />)
   return (
     <main>
       <div id="dice-container">
         {diceComponents}
       </div>
+      <button id="roll-dice" onClick={rollAllDice}>Roll</button>
     </main>
   );
 }
